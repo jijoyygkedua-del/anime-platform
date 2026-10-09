@@ -1,0 +1,1556 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #08080c;
+    color: #ffffff;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background:
+        radial-gradient(
+            circle at top,
+            #252535 0%,
+            #0b0b10 45%,
+            #050507 100%
+        );
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 32px;
+    border: 1px solid #292936;
+    border-radius: 20px;
+    background: rgba(16, 16, 23, 0.96);
+    text-align: center;
+}
+
+.login-logo {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    background: #ffffff;
+    color: #08080c;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.login-card h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    color: #9c9ca8;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-button {
+    width: 100%;
+    min-height: 48px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.discord-button {
+    background: #5865f2;
+    color: #ffffff;
+}
+
+.google-button {
+    background: #ffffff;
+    color: #111111;
+}
+
+.login-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+.login-status {
+    min-height: 20px;
+    margin-top: 16px;
+    color: #9999a5;
+}
+
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+.dashboard {
+    display: none;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(75, 75, 120, 0.18),
+            transparent 35%
+        ),
+        #08080c;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+    height: 72px;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #20202a;
+    background: rgba(8, 8, 12, 0.94);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-right {
+    gap: 14px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.brand-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #09090d;
+    font-size: 12px;
+}
+
+.nav-premium-button {
+    min-height: 38px;
+    padding: 0 15px;
+    border: 1px solid #4b4b60;
+    border-radius: 9px;
+    background: #171720;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.nav-gems {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #eeeeee;
+    font-weight: 700;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 4px 10px 4px 4px;
+    border: 1px solid #292934;
+    border-radius: 22px;
+    background: #13131a;
+    color: #ffffff;
+}
+
+.nav-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main-content {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 40px 0 80px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero-section {
+    min-height: 290px;
+    display: flex;
+    align-items: center;
+    padding: 42px;
+    border: 1px solid #272733;
+    border-radius: 22px;
+    background:
+        linear-gradient(
+            135deg,
+            #171721,
+            #0d0d13
+        );
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-title-row h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.1;
+}
+
+.hero-content > p {
+    margin: 18px 0 24px;
+    color: #a3a3b0;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   VERIFIED
+========================================= */
+
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #1e4230;
+    color: #75e7a5;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.primary-button {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #09090d;
+    font-weight: 800;
+}
+
+.full-button {
+    width: 100%;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-section {
+    margin: 28px 0;
+}
+
+.search-box {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    border: 1px solid #292934;
+    border-radius: 12px;
+    background: #111118;
+}
+
+.search-icon {
+    color: #898995;
+    font-size: 24px;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #ffffff;
+}
+
+.search-box input::placeholder {
+    color: #777783;
+}
+
+.clear-search {
+    border: 0;
+    background: transparent;
+    color: #9999a5;
+    font-size: 24px;
+}
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.content-section {
+    margin-top: 42px;
+}
+
+.section-header {
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.section-header p {
+    color: #888894;
+}
+
+#animeCount {
+    color: #888894;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ANIME GRID
+========================================= */
+
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.anime-card {
+    overflow: hidden;
+    border: 1px solid #292934;
+    border-radius: 14px;
+    background: #111118;
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+.anime-card:hover {
+    transform: translateY(-4px);
+    border-color: #505064;
+}
+
+.anime-poster {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: #191920;
+}
+
+.anime-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.anime-rating {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    padding: 5px 7px;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.anime-card-info {
+    padding: 14px;
+}
+
+.anime-card-info h3 {
+    margin-bottom: 6px;
+    font-size: 16px;
+}
+
+.anime-card-info p {
+    color: #8f8f9b;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty-state {
+    padding: 50px 20px;
+    border: 1px dashed #30303b;
+    border-radius: 14px;
+    text-align: center;
+    color: #9999a5;
+}
+
+.empty-state h3 {
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.feature-card {
+    padding: 22px;
+    border: 1px solid #292934;
+    border-radius: 14px;
+    background: #111118;
+}
+
+.feature-card:hover {
+    border-color: #454553;
+}
+
+.feature-icon {
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.feature-card h3 {
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: #92929e;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PROFILE PANEL
+========================================= */
+
+.profile-panel {
+    position: fixed;
+    z-index: 300;
+    top: 82px;
+    right: 20px;
+    width: min(360px, calc(100% - 40px));
+    padding: 22px;
+    border: 1px solid #30303b;
+    border-radius: 16px;
+    background: #111118;
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: 0.2s;
+}
+
+.profile-panel.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.profile-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.close-button,
+.modal-close {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 8px;
+    background: #1d1d26;
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.profile-main {
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 14px;
+}
+
+.profile-name-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.profile-main > p {
+    margin-top: 6px;
+    color: #858591;
+}
+
+.profile-info {
+    margin: 24px 0;
+    border-top: 1px solid #292934;
+    border-bottom: 1px solid #292934;
+}
+
+.profile-info-item {
+    min-height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #22222c;
+}
+
+.profile-info-item:last-child {
+    border-bottom: 0;
+}
+
+.profile-info-item span {
+    color: #858591;
+}
+
+.logout-button {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 10px;
+    border: 1px solid #5c3030;
+    border-radius: 10px;
+    background: #241414;
+    color: #ff9292;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: 0.2s;
+}
+
+.modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-content {
+    position: relative;
+    width: min(900px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px;
+    border: 1px solid #30303b;
+    border-radius: 18px;
+    background: #111118;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+
+/* =========================================
+   PREMIUM
+========================================= */
+
+.premium-modal-content {
+    max-width: 850px;
+}
+
+.premium-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.premium-crown {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.premium-header h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.premium-header p {
+    color: #90909c;
+}
+
+.premium-current-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    margin-bottom: 22px;
+    border: 1px solid #2b2b36;
+    border-radius: 12px;
+    background: #16161e;
+}
+
+.status-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #777783;
+    font-size: 12px;
+}
+
+.premium-status-badge {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #2b2020;
+    color: #ff9999;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.premium-status-badge.active {
+    background: #1d3d2c;
+    color: #76e2a3;
+}
+
+.premium-plans {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.premium-plan {
+    position: relative;
+    padding: 22px;
+    border: 1px solid #30303b;
+    border-radius: 14px;
+    background: #15151d;
+}
+
+.premium-plan.best-value {
+    border-color: #77775d;
+}
+
+.best-value-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px 9px;
+    border-radius: 0 13px 0 9px;
+    background: #dedeb8;
+    color: #111111;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.premium-plan-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.premium-plan-label {
+    color: #8d8d99;
+    font-size: 12px;
+}
+
+.premium-plan h3 {
+    margin-top: 4px;
+    font-size: 20px;
+}
+
+.premium-duration {
+    color: #9999a5;
+    font-size: 13px;
+}
+
+.premium-price {
+    margin: 22px 0 12px;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.premium-bonus {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 18px;
+    color: #bbbbc5;
+    font-size: 14px;
+}
+
+.premium-bonus strong {
+    color: #ffffff;
+}
+
+.premium-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    color: #a5a5b0;
+    font-size: 13px;
+}
+
+.premium-buy-button {
+    width: 100%;
+    min-height: 44px;
+    border: 0;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #09090d;
+    font-weight: 800;
+}
+
+.premium-message {
+    min-height: 20px;
+    margin-top: 18px;
+    text-align: center;
+    color: #a5a5b0;
+    font-size: 13px;
+}
+
+.premium-loading,
+.premium-error {
+    grid-column: 1 / -1;
+    padding: 30px;
+    text-align: center;
+    color: #9999a5;
+}
+
+
+/* =========================================
+   ANIME MODAL
+========================================= */
+
+.anime-modal-content {
+    max-width: 950px;
+}
+
+.anime-detail {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 28px;
+}
+
+.detail-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #1a1a22;
+}
+
+.detail-info {
+    padding-top: 8px;
+}
+
+.detail-info h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+#detailGenre {
+    color: #92929e;
+    margin-bottom: 8px;
+}
+
+.detail-rating {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+#detailDescription {
+    color: #a1a1ac;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.detail-info h3 {
+    margin-bottom: 12px;
+}
+
+.episode-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.episode-button {
+    min-width: 100px;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid #30303b;
+    border-radius: 8px;
+    background: #181820;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .anime-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: auto;
+        min-height: 70px;
+        padding: 12px 16px;
+        gap: 12px;
+    }
+
+    .brand span:last-child {
+        display: none;
+    }
+
+    .nav-right {
+        gap: 8px;
+    }
+
+    .nav-display-name {
+        display: none;
+    }
+
+    .main-content {
+        width: min(100% - 24px, 1180px);
+        padding-top: 24px;
+    }
+
+    .hero-section {
+        padding: 28px 22px;
+    }
+
+    .anime-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-plans {
+        grid-template-columns: 1fr;
+    }
+
+    .anime-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-poster {
+        width: 180px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .nav-premium-button {
+        display: none;
+    }
+
+    .profile-button {
+        padding-right: 5px;
+    }
+
+    .profile-button span {
+        display: none;
+    }
+
+    .hero-title-row h1 {
+        font-size: 32px;
+    }
+
+    .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .anime-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        padding: 22px 16px;
+    }
+
+}
+
+/* =====================================================
+   BUTTON ANIMATIONS
+===================================================== */
+
+button,
+.premium-buy-button,
+#premiumButton,
+#discordLogin,
+#googleLogin,
+#browseAnime,
+#profileButton,
+#logout,
+#clearSearch,
+.episode-button {
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease,
+        background 0.18s ease;
+}
+
+
+/* Hover */
+
+button:hover,
+.premium-buy-button:hover,
+#premiumButton:hover,
+#discordLogin:hover,
+#googleLogin:hover,
+#browseAnime:hover,
+#profileButton:hover,
+#logout:hover,
+#clearSearch:hover,
+.episode-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Click */
+
+button:active,
+.premium-buy-button:active,
+#premiumButton:active,
+#discordLogin:active,
+#googleLogin:active,
+#browseAnime:active,
+#profileButton:active,
+#logout:active,
+#clearSearch:active,
+.episode-button:active {
+    transform: translateY(1px) scale(0.97);
+}
+
+
+/* Focus */
+
+button:focus-visible,
+.premium-buy-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+
+/* Premium button */
+
+.premium-buy-button {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Shine animation */
+
+.premium-buy-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition:
+        left 0.5s ease;
+}
+
+
+.premium-buy-button:hover::before {
+    left: 140%;
+}
+
+
+/* Login buttons */
+
+#discordLogin,
+#googleLogin {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+#discordLogin:hover,
+#googleLogin:hover {
+    transform:
+        translateY(-3px)
+        scale(1.01);
+
+    filter: brightness(1.08);
+}
+
+
+#discordLogin:active,
+#googleLogin:active {
+    transform:
+        translateY(1px)
+        scale(0.97);
+}
+
+
+/* Browse button */
+
+#browseAnime {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#browseAnime:hover {
+    transform:
+        translateY(-3px);
+}
+
+
+#browseAnime:active {
+    transform:
+        scale(0.96);
+}
+
+
+/* Profile button */
+
+#profileButton {
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+#profileButton:hover {
+    transform:
+        scale(1.05);
+}
+
+
+#profileButton:active {
+    transform:
+        scale(0.94);
+}
+
+
+/* Premium button */
+
+#premiumButton {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#premiumButton:hover {
+    transform:
+        translateY(-2px)
+        scale(1.02);
+}
+
+
+#premiumButton:active {
+    transform:
+        scale(0.96);
+}
+
+
+/* Anime cards */
+
+.anime-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.anime-card:hover {
+    transform:
+        translateY(-6px);
+}
+
+
+.anime-card:active {
+    transform:
+        translateY(-2px)
+        scale(0.98);
+}
+
+
+/* Premium cards */
+
+.premium-plan {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.premium-plan:hover {
+    transform:
+        translateY(-5px);
+}
+
+
+/* Episode buttons */
+
+.episode-button {
+    transition:
+        transform 0.15s ease,
+        background 0.2s ease;
+}
+
+
+.episode-button:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+.episode-button:active {
+    transform:
+        scale(0.95);
+}
+
+/* =====================================================
+   FRIEND SYSTEM
+===================================================== */
+
+.friends-button {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 10px;
+    border: 1px solid #30303b;
+    border-radius: 10px;
+    background: #181820;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+
+/* FRIEND MODAL */
+
+.friends-modal-content {
+    width: min(700px, 100%);
+    max-width: 700px;
+}
+
+.friends-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.friends-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+    background: #1b1b25;
+
+    font-size: 28px;
+}
+
+.friends-header h2 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.friends-header p {
+    color: #90909c;
+}
+
+
+/* SECTIONS */
+
+.friends-section {
+    margin-top: 24px;
+}
+
+.friends-section:first-of-type {
+    margin-top: 0;
+}
+
+.friends-section h3 {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.friends-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.friends-section-title > span {
+    min-width: 26px;
+    height: 26px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 7px;
+
+    border-radius: 999px;
+    background: #20202a;
+    color: #aaaaB5;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* ADD FRIEND */
+
+.add-friend-box {
+    display: flex;
+    gap: 10px;
+}
+
+.add-friend-box input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+
+    padding: 0 13px;
+
+    border: 1px solid #30303b;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #15151d;
+    color: #ffffff;
+}
+
+.add-friend-box input::placeholder {
+    color: #70707c;
+}
+
+.add-friend-box input:focus {
+    border-color: #555565;
+}
+
+.friends-action-button {
+    min-width: 80px;
+    min-height: 44px;
+
+    padding: 0 16px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #09090d;
+
+    font-weight: 800;
+}
+
+
+/* MESSAGE */
+
+.friend-message {
+    min-height: 20px;
+    margin-top: 10px;
+
+    color: #9999a5;
+    font-size: 13px;
+}
+
+
+/* LIST */
+
+.friends-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.friends-empty {
+    padding: 24px 15px;
+
+    border: 1px dashed #30303b;
+    border-radius: 10px;
+
+    text-align: center;
+
+    color: #858591;
+    font-size: 13px;
+}
+
+
+/* FRIEND ITEM */
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 11px;
+
+    border: 1px solid #292934;
+    border-radius: 11px;
+
+    background: #15151d;
+}
+
+.friend-avatar {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.friend-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.friend-user-name {
+    margin-bottom: 3px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-weight: 800;
+}
+
+.friend-user-username {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #858591;
+    font-size: 12px;
+}
+
+.friend-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.friend-item-button {
+    min-height: 34px;
+    padding: 0 10px;
+
+    border: 1px solid #30303b;
+    border-radius: 8px;
+
+    background: #1c1c25;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.friend-item-button.accept {
+    border-color: #315a43;
+    background: #193225;
+    color: #79e3a5;
+}
+
+.friend-item-button.decline,
+.friend-item-button.remove {
+    border-color: #513030;
+    background: #241616;
+    color: #ff9999;
+}
+
+
+/* FRIEND ANIMATIONS */
+
+.friends-button,
+.friends-action-button,
+.friend-item-button {
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease,
+        background 0.18s ease;
+}
+
+.friends-button:hover,
+.friends-action-button:hover,
+.friend-item-button:hover {
+    transform: translateY(-2px);
+}
+
+.friends-button:active,
+.friends-action-button:active,
+.friend-item-button:active {
+    transform: translateY(1px) scale(0.97);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+
+    .add-friend-box {
+        flex-direction: column;
+    }
+
+    .friends-action-button {
+        width: 100%;
+    }
+
+    .friend-item {
+        align-items: flex-start;
+    }
+
+    .friend-item-actions {
+        flex-direction: column;
+    }
+
+    .friend-item-button {
+        width: 78px;
+    }
+
+}

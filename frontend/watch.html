@@ -1,0 +1,252 @@
+```html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Anime | Anime Platform</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #0b0b10;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 5%;
+            background: #15151e;
+            border-bottom: 1px solid #292936;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            color: #8b5cf6;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .video-container {
+            width: 100%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        video {
+            display: block;
+            width: 100%;
+            max-height: 650px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .description {
+            color: #aaa;
+            margin-bottom: 24px;
+        }
+
+        .episode-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #15151e;
+            border-radius: 12px;
+        }
+
+        .episode-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .episode-button {
+            padding: 12px 18px;
+            border: 1px solid #393946;
+            border-radius: 8px;
+            background: #22222e;
+            color: white;
+            cursor: pointer;
+        }
+
+        .episode-button:hover,
+        .episode-button.active {
+            background: #7c3aed;
+            border-color: #7c3aed;
+        }
+
+        #status {
+            color: #aaa;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                width: 94%;
+                margin-top: 18px;
+            }
+
+            header {
+                padding: 16px 3%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a class="logo" href="/">Anime Platform</a>
+        <a href="/">Home</a>
+    </header>
+
+    <main>
+        <h1 id="animeTitle">Anime Player</h1>
+        <p class="description" id="episodeTitle">
+            Pilih episod untuk mula menonton.
+        </p>
+
+        <div class="video-container">
+            <video id="animeVideo" controls playsinline preload="metadata">
+                Browser anda tidak menyokong video HTML5.
+            </video>
+        </div>
+
+        <p id="status">Memuatkan senarai episod...</p>
+
+        <section class="episode-section">
+            <h2>Senarai Episod</h2>
+            <div class="episode-list" id="episodeList"></div>
+        </section>
+    </main>
+
+    <script>
+        const video = document.getElementById("animeVideo");
+        const episodeList = document.getElementById("episodeList");
+        const episodeTitle = document.getElementById("episodeTitle");
+        const animeTitle = document.getElementById("animeTitle");
+        const statusText = document.getElementById("status");
+
+        let episodes = [];
+
+        function playEpisode(episode, button) {
+            animeTitle.textContent = episode.animeTitle || "Anime Player";
+            episodeTitle.textContent = episode.title || "Episod";
+
+            document.querySelectorAll(".episode-button").forEach(item => {
+                item.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            statusText.textContent = "Memuatkan video...";
+
+            video.onerror = () => {
+                statusText.textContent =
+                    "Video gagal dimainkan. Semak fail MP4 dan URL video.";
+            };
+
+            video.onloadedmetadata = () => {
+                statusText.textContent = "";
+            };
+
+            video.src = episode.videoUrl;
+            video.load();
+
+            // Tidak memulakan video secara automatik.
+            // Pengguna boleh tekan butang Play pada player.
+        }
+
+        async function loadEpisodes() {
+            try {
+                const response = await fetch("/api/episodes");
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(
+                        data.error || "Gagal memuatkan senarai episod."
+                    );
+                }
+
+                episodes = Array.isArray(data.episodes)
+                    ? data.episodes
+                    : [];
+
+                episodeList.replaceChildren();
+
+                if (episodes.length === 0) {
+                    statusText.textContent =
+                        "Belum ada episod yang dimuat naik.";
+                    return;
+                }
+
+                statusText.textContent = "";
+
+                episodes.forEach((episode, index) => {
+                    const button = document.createElement("button");
+
+                    button.type = "button";
+                    button.className = "episode-button";
+                    button.textContent =
+                        episode.title || `Episod ${index + 1}`;
+
+                    button.addEventListener("click", () => {
+                        playEpisode(episode, button);
+
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("id", episode.id);
+                        history.replaceState(null, "", url);
+                    });
+
+                    episodeList.appendChild(button);
+                });
+
+                const requestedId =
+                    new URLSearchParams(window.location.search).get("id");
+
+                let selectedIndex = episodes.findIndex(
+                    episode => String(episode.id) === requestedId
+                );
+
+                if (selectedIndex < 0) {
+                    selectedIndex = 0;
+                }
+
+                const selectedButton = episodeList.children[selectedIndex];
+
+                if (selectedButton) {
+                    selectedButton.click();
+                }
+
+            } catch (error) {
+                console.error("Load episodes error:", error);
+                statusText.textContent =
+                    "Gagal memuatkan episod. Semak server dan API.";
+            }
+        }
+
+        loadEpisodes();
+    </script>
+</body>
+</html>
+```

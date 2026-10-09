@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Anime Platform</title>
+
+    <link rel="stylesheet" href="/style.css?v=20">
+</head>
+
+<body>
+
+    <!-- =========================
+         LOGIN PAGE
+    ========================== -->
+
+    <section id="loginPage" class="login-page">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                AP
+            </div>
+
+            <h1>Anime Platform</h1>
+
+            <p class="login-subtitle">
+                Watch anime and enjoy your experience.
+            </p>
+
+            <div class="login-buttons">
+
+                <button
+                    type="button"
+                    id="discordLogin"
+                    class="login-button discord-button"
+                >
+                    Login with Discord
+                </button>
+
+                <button
+                    type="button"
+                    id="googleLogin"
+                    class="login-button google-button"
+                >
+                    Login with Google
+                </button>
+
+            </div>
+
+            <p id="status" class="login-status"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================== -->
+
+    <div id="dashboard" class="dashboard">
+
+        <!-- NAVBAR -->
+
+        <nav class="navbar">
+
+            <div class="nav-left">
+
+                <div class="brand">
+                    <span class="brand-icon">AP</span>
+                    <span>Anime Platform</span>
+                </div>
+
+            </div>
+
+            <div class="nav-right">
+
+                <button
+                    type="button"
+                    id="premiumButton"
+                    class="nav-premium-button"
+                >
+                    Premium
+                </button>
+
+                <div class="nav-gems">
+                    <span>💎</span>
+                    <span id="animGems">0</span>
+                </div>
+
+                <button
+                    type="button"
+                    id="profileButton"
+                    class="profile-button"
+                >
+
+                    <img
+                        id="navAvatar"
+                        class="nav-avatar"
+                        src="https://cdn.discordapp.com/embed/avatars/0.png"
+                        alt="Profile"
+                    >
+
+                    <span id="navDisplayName">User</span>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+
+        <!-- MAIN -->
+
+        <main class="main-content">
+
+            <!-- HERO -->
+
+            <section class="hero-section">
+
+                <div class="hero-content">
+
+                    <div class="hero-title-row">
+
+                        <h1>
+                            Welcome,
+                            <span id="welcomeName">User</span>
+                        </h1>
+
+                        <span
+                            id="verifiedBadge"
+                            class="verified-badge"
+                            style="display:none;"
+                        >
+                            ✓ Verified
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Discover and watch your favorite anime.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="browseAnime"
+                        class="primary-button"
+                    >
+                        Browse Anime
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- SEARCH -->
+
+            <section class="search-section">
+
+                <div class="search-box">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input
+                        type="text"
+                        id="animeSearch"
+                        placeholder="Search anime..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        type="button"
+                        id="clearSearch"
+                        class="clear-search"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- CONTINUE -->
+
+            <section
+                id="continueSection"
+                class="content-section"
+                style="display:none;"
+            >
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Continue Watching</h2>
+                        <p>Continue where you left off.</p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="continueGrid"
+                    class="anime-grid"
+                ></div>
+
+                <div
+                    id="emptyContinue"
+                    class="empty-state"
+                >
+                    <h3>No anime yet</h3>
+                    <p>
+                        Your watched anime will appear here.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- ANIME -->
+
+            <section class="content-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2 id="animeSectionTitle">
+                            Anime
+                        </h2>
+
+                        <p>
+                            Discover anime available on the platform.
+                        </p>
+
+                    </div>
+
+                    <span id="animeCount">
+                        0 Anime
+                    </span>
+
+                </div>
+
+                <div
+                    id="animeGrid"
+                    class="anime-grid"
+                ></div>
+
+                <div
+                    id="noAnime"
+                    class="empty-state"
+                    style="display:none;"
+                >
+
+                    <h3>Anime not found</h3>
+
+                    <p>
+                        Try searching with another title.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- PLATFORM FEATURES -->
+
+            <section class="content-section">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Platform</h2>
+                        <p>Your Anime Platform features.</p>
+                    </div>
+
+                </div>
+
+                <div class="feature-grid">
+
+                    <div
+                        id="platformPremiumCard"
+                        class="feature-card premium-feature-card"
+                    >
+                        <div class="feature-icon">👑</div>
+
+                        <h3>Premium</h3>
+
+                        <p>
+                            Get Premium and unlock your benefits.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">💎</div>
+
+                        <h3>AnimGems</h3>
+
+                        <p>
+                            Your AnimGems balance:
+                            <strong id="featureGems">0</strong>
+                        </p>
+
+                    </div>
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">🏰</div>
+
+                        <h3>Guild</h3>
+
+                        <p>
+                            Join and interact with your community.
+                        </p>
+
+                    </div>
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">💬</div>
+
+                        <h3>Global Chat</h3>
+
+                        <p>
+                            Chat with other Anime Platform users.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- =========================
+             PROFILE PANEL
+        ========================== -->
+
+        <aside
+            id="profilePanel"
+            class="profile-panel"
+        >
+
+            <div class="profile-panel-header">
+
+                <h2>Profile</h2>
+
+                <button
+                    type="button"
+                    id="closeProfile"
+                    class="close-button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="profile-main">
+
+                <img
+                    id="profileAvatar"
+                    class="profile-avatar"
+                    src="https://cdn.discordapp.com/embed/avatars/0.png"
+                    alt="Profile"
+                >
+
+                <div class="profile-name-row">
+
+                    <h3 id="profileName">
+                        User
+                    </h3>
+
+                    <span
+                        id="profileVerifiedBadge"
+                        class="verified-badge"
+                        style="display:none;"
+                    >
+                        ✓ Verified
+                    </span>
+
+                </div>
+
+                <p id="profileUsername">
+                    @user
+                </p>
+
+            </div>
+
+            <div class="profile-info">
+
+                <div class="profile-info-item">
+
+                    <span>AnimGems</span>
+
+                    <strong id="profileGems">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="profile-info-item">
+
+                    <span>Premium</span>
+
+                    <strong id="profilePremium">
+                        Tidak aktif
+                    </strong>
+
+                </div>
+
+                <div class="profile-info-item">
+
+                    <span>Verified</span>
+
+                    <strong id="profileVerified">
+                        Not Verified
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                id="openPremiumFromProfile"
+                class="primary-button full-button"
+            >
+                Premium
+            </button>
+
+            <button
+                type="button"
+                id="logout"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </aside>
+
+
+        <!-- =========================
+             PREMIUM MODAL
+        ========================== -->
+
+        <div
+            id="premiumModal"
+            class="modal"
+        >
+
+            <div class="modal-content premium-modal-content">
+
+                <button
+                    type="button"
+                    id="closePremiumModal"
+                    class="modal-close"
+                >
+                    ×
+                </button>
+
+                <div class="premium-header">
+
+                    <div class="premium-crown">
+                        👑
+                    </div>
+
+                    <h2>Premium</h2>
+
+                    <p>
+                        Upgrade your Anime Platform experience.
+                    </p>
+
+                </div>
+
+
+                <div class="premium-current-status">
+
+                    <div>
+                        <span class="status-label">
+                            Current Status
+                        </span>
+
+                        <strong id="premiumStatusText">
+                            Checking...
+                        </strong>
+                    </div>
+
+                    <span
+                        id="premiumStatusBadge"
+                        class="premium-status-badge"
+                    >
+                        Checking
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="premiumPlans"
+                    class="premium-plans"
+                >
+
+                    <div class="premium-loading">
+                        Loading Premium plans...
+                    </div>
+
+                </div>
+
+
+                <p
+                    id="premiumMessage"
+                    class="premium-message"
+                ></p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             ANIME MODAL
+        ========================== -->
+
+        <div
+            id="animeModal"
+            class="modal"
+        >
+
+            <div class="modal-content anime-modal-content">
+
+                <button
+                    type="button"
+                    id="closeAnimeModal"
+                    class="modal-close"
+                >
+                    ×
+                </button>
+
+                <div class="anime-detail">
+
+                    <img
+                        id="detailPoster"
+                        class="detail-poster"
+                        src=""
+                        alt="Anime poster"
+                    >
+
+                    <div class="detail-info">
+
+                        <h2 id="detailTitle">
+                            Anime
+                        </h2>
+
+                        <p id="detailGenre"></p>
+
+                        <p
+                            id="detailRating"
+                            class="detail-rating"
+                        ></p>
+
+                        <p id="detailDescription"></p>
+
+                        <h3>Episodes</h3>
+
+                        <div
+                            id="episodeList"
+                            class="episode-list"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="/script.js?v=23"></script>
+<script src="/global-chat.js?v=1"></script>
+
+</body>
+</html>

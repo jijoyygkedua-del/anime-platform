@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode Manager</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            background: #101018;
+            color: #f5f5f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #aaaab8;
+            margin-bottom: 25px;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button, .back-link {
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .refresh, .back-link {
+            background: #343447;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+        }
+
+        .message {
+            margin: 15px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .episode-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .episode {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 18px;
+            background: #1b1b27;
+            border: 1px solid #303040;
+            border-radius: 12px;
+        }
+
+        .episode-info {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .episode-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .anime-title {
+            margin-top: 6px;
+            color: #aaaab8;
+            font-size: 14px;
+        }
+
+        .episode-id {
+            margin-top: 5px;
+            color: #77778b;
+            font-size: 12px;
+        }
+
+        .delete-btn {
+            flex-shrink: 0;
+            background: #d9364f;
+            color: white;
+        }
+
+        .empty {
+            padding: 25px;
+            text-align: center;
+            color: #aaaab8;
+            background: #1b1b27;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .episode {
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .delete-btn {
+                padding: 9px 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Episode Manager</h1>
+
+        <p class="subtitle">
+            Urus episod anime yang telah dimuat naik.
+        </p>
+
+        <div class="toolbar">
+            <button class="refresh" id="refreshBtn" type="button">
+                Refresh Episod
+            </button>
+
+            <a class="back-link" href="/admin.html">
+                Kembali ke Admin
+            </a>
+        </div>
+
+        <p class="message" id="message" role="status">
+            Memuatkan episod...
+        </p>
+
+        <section class="episode-list" id="episodeList"></section>
+    </main>
+
+    <script>
+        const episodeList = document.getElementById("episodeList");
+        const message = document.getElementById("message");
+        const refreshBtn = document.getElementById("refreshBtn");
+
+        async function loadEpisodes() {
+            refreshBtn.disabled = true;
+            message.textContent = "Memuatkan episod...";
+            episodeList.replaceChildren();
+
+            try {
+                const response = await fetch("/api/episodes", {
+                    method: "GET",
+                    credentials: "same-origin"
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || data.success === false) {
+                    throw new Error(
+                        data.error || `Gagal memuatkan episod. HTTP ${response.status}`
+                    );
+                }
+
+                const episodes = Array.isArray(data)
+                    ? data
+                    : data.episodes;
+
+                if (!Array.isArray(episodes)) {
+                    throw new Error(
+                        "Data episod tidak dijumpai dalam respons API."
+                    );
+                }
+
+                if (episodes.length === 0) {
+                    message.textContent = "";
+
+                    const empty = document.createElement("div");
+                    empty.className = "empty";
+                    empty.textContent = "Tiada episod ditemui.";
+
+                    episodeList.appendChild(empty);
+                    return;
+                }
+
+                message.textContent = `Jumlah episod: ${episodes.length}`;
+
+                episodes.forEach((episode) => {
+                    const card = document.createElement("article");
+                    card.className = "episode";
+
+                    const info = document.createElement("div");
+                    info.className = "episode-info";
+
+                    const title = document.createElement("div");
+                    title.className = "episode-title";
+                    title.textContent = episode.title || "Episod tanpa tajuk";
+
+                    const anime = document.createElement("div");
+                    anime.className = "anime-title";
+                    anime.textContent =
+                        "Anime: " +
+                        (episode.animeTitle || episode.anime_title || "Tidak diketahui");
+
+                    const id = document.createElement("div");
+                    id.className = "episode-id";
+                    id.textContent = "ID: " + episode.id;
+
+                    info.append(title, anime, id);
+
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.type = "button";
+                    deleteBtn.className = "delete-btn";
+                    deleteBtn.textContent = "Padam";
+
+                    deleteBtn.addEventListener("click", async () => {
+                        console.log("Butang Padam ditekan:", episode.id);
+
+                        const confirmed = confirm(
+                            `Adakah anda pasti mahu memadam "${episode.title || "episod ini"}"?\n\nFail video juga akan dipadam jika backend menyokongnya.`
+                        );
+
+                        if (!confirmed) return;
+
+                        deleteBtn.disabled = true;
+                        deleteBtn.textContent = "Memadam...";
+                        message.textContent = "Sedang memadam episod...";
+
+                        try {
+                            const response = await fetch(
+                                "/api/episodes/" +
+                                encodeURIComponent(episode.id),
+                                {
+                                    method: "DELETE",
+                                    credentials: "same-origin"
+                                }
+                            );
+
+                            const responseText = await response.text();
+
+                            let result;
+
+                            try {
+                                result = JSON.parse(responseText);
+                            } catch {
+                                throw new Error(
+                                    `Respons server tidak sah. HTTP ${response.status}`
+                                );
+                            }
+
+                            if (!response.ok || result.success !== true) {
+                                throw new Error(
+                                    result.error ||
+                                    `Gagal memadam episod. HTTP ${response.status}`
+                                );
+                            }
+
+                            await loadEpisodes();
+
+                            message.textContent =
+                                result.message || "Episod berjaya dipadam.";
+
+                        } catch (error) {
+                            console.error("Ralat padam episod:", error);
+
+                            message.textContent = "Ralat: " + error.message;
+
+                            deleteBtn.disabled = false;
+                            deleteBtn.textContent = "Padam";
+                        }
+                    });
+
+                    card.append(info, deleteBtn);
+                    episodeList.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Ralat memuatkan episod:", error);
+
+                message.textContent = "Ralat: " + error.message;
+            } finally {
+                refreshBtn.disabled = false;
+            }
+        }
+
+        refreshBtn.addEventListener("click", loadEpisodes);
+
+        loadEpisodes();
+    </script>
+</body>
+</html>

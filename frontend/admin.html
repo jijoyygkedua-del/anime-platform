@@ -1,0 +1,219 @@
+```html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Admin - Upload Episod</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            font-family: Arial, sans-serif;
+            background: #101018;
+            color: white;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #1c1c29;
+            border-radius: 15px;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #44445a;
+            border-radius: 8px;
+            background: #101018;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #7557ff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #message {
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        a {
+            color: #a99aff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Anime Admin</h1>
+        <p>Muat naik episod anime dalam format MP4.</p>
+
+        <form id="uploadForm">
+            <label for="animeTitle">Nama Anime</label>
+            <input
+                id="animeTitle"
+                name="animeTitle"
+                type="text"
+                maxlength="150"
+                placeholder="Contoh: Black Clover"
+                required
+            >
+
+            <label for="title">Tajuk Episod</label>
+            <input
+                id="title"
+                name="title"
+                type="text"
+                maxlength="150"
+                placeholder="Contoh: Episod 1"
+                required
+            >
+
+            <label for="video">Fail Video MP4</label>
+            <input
+                id="video"
+                name="video"
+                type="file"
+                accept=".mp4,video/mp4"
+                required
+            >
+
+            <button id="uploadButton" type="submit">
+                Upload Episod
+            </button>
+        </form>
+
+        <p id="message" role="status"></p>
+        <div id="episodeList"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById("uploadForm");
+        const button = document.getElementById("uploadButton");
+        const message = document.getElementById("message");
+        const episodeList = document.getElementById("episodeList");
+
+        async function loadEpisodes() {
+            try {
+                const response = await fetch("/api/episodes");
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || "Gagal mengambil episod.");
+                }
+
+                episodeList.replaceChildren();
+
+                const heading = document.createElement("h2");
+                heading.textContent = "Episod yang dimuat naik";
+                episodeList.appendChild(heading);
+
+                if (!data.episodes.length) {
+                    const empty = document.createElement("p");
+                    empty.textContent = "Belum ada episod.";
+                    episodeList.appendChild(empty);
+                    return;
+                }
+
+                data.episodes.forEach(episode => {
+                    const item = document.createElement("div");
+                    item.style.marginTop = "16px";
+
+                    const title = document.createElement("strong");
+                    title.textContent =
+                        episode.animeTitle + " — " + episode.title;
+
+                    const link = document.createElement("a");
+                    link.href = episode.videoUrl;
+                    link.target = "_blank";
+                    link.rel = "noopener noreferrer";
+                    link.textContent = " Buka video";
+
+                    item.append(title, document.createElement("br"), link);
+                    episodeList.appendChild(item);
+                });
+            } catch (error) {
+                message.textContent = error.message;
+            }
+        }
+
+        form.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const file = document.getElementById("video").files[0];
+
+            if (!file) {
+                message.textContent = "Pilih fail MP4 dahulu.";
+                return;
+            }
+
+            if (!file.name.toLowerCase().endsWith(".mp4")) {
+                message.textContent = "Hanya fail MP4 dibenarkan.";
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            button.disabled = true;
+            message.textContent = "Sedang memuat naik video...";
+
+            try {
+                const response = await fetch("/api/episodes/upload", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "same-origin"
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || "Upload gagal.");
+                }
+
+                message.textContent = data.message;
+                form.reset();
+                await loadEpisodes();
+            } catch (error) {
+                message.textContent =
+                    "Ralat: " + error.message;
+            } finally {
+                button.disabled = false;
+            }
+        });
+
+        loadEpisodes();
+    </script>
+</body>
+</html>
+```
